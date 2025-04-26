@@ -1,36 +1,24 @@
-import React, { useState } from 'react';
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import HomeScreen from './Excercise4/Home';
+import ProfileScreen from './Excercise4/Profile';
+import SettingScreen from './Excercise4/Setting';
 
-import theme from './BUOI2/theme';
-import LoginScreen from './BUOI2/LoginScreen';
-import SignupScreen from './BUOI2/SignupScreen';
-import ResetPasswordScreen from './BUOI2/ResetPasswordScreen';
+const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const [currentScreen, setCurrentScreen] = useState('Login');
-
-  // Simple navigation function
-  const navigate = (screenName) => {
-    setCurrentScreen(screenName);
-  };
-
-  // Render the current screen
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case 'Login':
-        return <LoginScreen navigation={{ navigate }} />;
-      case 'Signup':
-        return <SignupScreen navigation={{ navigate }} />;
-      case 'ResetPassword':
-        return <ResetPasswordScreen navigation={{ navigate }} />;
-      default:
-        return <LoginScreen navigation={{ navigate }} />;
-    }
-  };
-
   return (
-    <PaperProvider theme={theme}>
-      {renderScreen()}
+    <PaperProvider>
+      <NavigationContainer>
+        <Drawer.Navigator>
+          <Drawer.Screen name="Home" component={HomeScreen} />
+          <Drawer.Screen name="Profile" component={ProfileScreen} />
+          <Drawer.Screen name="Settings" component={SettingScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
     </PaperProvider>
   );
 };
